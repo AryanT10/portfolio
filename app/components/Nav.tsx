@@ -21,9 +21,6 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const openPalette = () =>
-    window.dispatchEvent(new CustomEvent("open-palette"));
-
   return (
     <header
       className={`fixed inset-x-0 top-0 z-40 transition-colors duration-300 ${
@@ -41,29 +38,18 @@ export default function Nav() {
           <span className="text-fg-dim">@{profile.host}</span>
         </a>
 
-        <div className="hidden items-center gap-1 sm:flex">
-          {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="rounded-md px-2.5 py-1.5 font-mono text-sm text-fg-muted transition hover:text-accent"
-            >
-              {l.label}
-            </a>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-2">
-          <button
-            onClick={openPalette}
-            className="flex items-center gap-2 rounded-lg border border-border-strong bg-bg-raised px-2.5 py-1.5 font-mono text-xs text-fg-muted transition hover:border-accent hover:text-accent"
-            aria-label="Open command palette"
-          >
-            <span className="hidden sm:inline">Jump to…</span>
-            <kbd className="rounded border border-border bg-bg-overlay px-1.5 py-0.5">
-              ⌘K
-            </kbd>
-          </button>
+        <div className="flex items-center gap-1">
+          <div className="hidden items-center gap-1 sm:flex">
+            {links.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                className="rounded-md px-2.5 py-1.5 font-mono text-sm text-fg-muted transition hover:text-accent"
+              >
+                {l.label}
+              </a>
+            ))}
+          </div>
           <ThemeToggle />
         </div>
       </nav>

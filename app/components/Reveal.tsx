@@ -24,6 +24,12 @@ export default function Reveal({
       setShown(true);
       return;
     }
+    // Already in view on mount? reveal next frame (don't wait for a scroll).
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    if (el.getBoundingClientRect().top < vh * 0.92) {
+      requestAnimationFrame(() => setShown(true));
+      return;
+    }
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -31,15 +37,10 @@ export default function Reveal({
           io.disconnect();
         }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+      { threshold: 0.12, rootMargin: "0px 0px -10% 0px" }
     );
     io.observe(el);
-    // Backstop: never let content stay invisible for long.
-    const t = setTimeout(() => setShown(true), 1500);
-    return () => {
-      io.disconnect();
-      clearTimeout(t);
-    };
+    return () => io.disconnect();
   }, []);
 
   const Comp = Tag as "div";

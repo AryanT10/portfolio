@@ -97,6 +97,49 @@ export default function Hero() {
 
   const push = (...lines: Line[]) => setHistory((h) => [...h, ...lines]);
 
+  const JOKES = [
+    "Why do programmers prefer dark mode? Light attracts bugs. 🐛",
+    "A SQL query walks into a bar, sees two tables and asks: may I join you?",
+    "There are 10 kinds of people: those who read binary and those who don't.",
+    "It works on my machine ¯\\_(ツ)_/¯",
+    "To understand recursion, first understand recursion.",
+  ];
+
+  // hidden commands — not shown in the dropdown, fun to discover
+  const easterEgg = (name: string): string[] | null => {
+    if (name.startsWith("sudo")) {
+      return name.includes("hire")
+        ? ["✓ root access granted → aryantuwar676@gmail.com"]
+        : ["nice try — you already have root here 😏"];
+    }
+    if (name.startsWith("rm")) {
+      return ["🙅 denied. this site is immutable & version-controlled. good instinct though."];
+    }
+    if (name.startsWith("echo ")) return [name.slice(5)];
+    if (name === "ls" || name.startsWith("ls "))
+      return ["about/   experience/   work/   skills/   contact/"];
+    if (name === "pwd") return ["~/aryan/portfolio"];
+    if (name === "whoami")
+      return ["Aryan Tuwar — backend & full-stack engineer who sweats the money-handling edge cases."];
+    if (name === "coffee")
+      return ["☕ brewing… ✓ caffeine nominal. shipping continues."];
+    if (name === "hire" || name === "hire me" || name === "hireme")
+      return ["excellent decision. → aryantuwar676@gmail.com"];
+    if (name === "joke") return [JOKES[history.length % JOKES.length]];
+    if (name === "exit" || name === "quit")
+      return ["there is no exit — but there is a scroll bar ↑"];
+    if (name === "neofetch")
+      return [
+        "aryan@portfolio",
+        "---------------",
+        "role     backend + full-stack",
+        "company  Mogo (fintech)",
+        "stack    TS · NestJS · Next.js · React Native",
+        "status   shipping 🚀",
+      ];
+    return null;
+  };
+
   const execute = (rawInput: string) => {
     const raw = rawInput.trim();
     if (!raw) return;
@@ -110,6 +153,7 @@ export default function Hero() {
         push({ kind: "out", text: `  /${c.label.padEnd(11)} ${c.desc}` })
       );
       push({ kind: "out", text: `  /clear       wipe the screen` });
+      push({ kind: "out", text: `psst… also try: sudo · coffee · joke · ls · neofetch` });
     } else if (name === "clear" || name === "cls") {
       setHistory([]);
     } else {
@@ -118,10 +162,15 @@ export default function Hero() {
         const msg = cmd.run();
         if (msg) push({ kind: "out", text: msg });
       } else {
-        push({
-          kind: "err",
-          text: `command not found: ${name} — type /help`,
-        });
+        const egg = easterEgg(name);
+        if (egg) {
+          push(...egg.map((text) => ({ kind: "out" as const, text })));
+        } else {
+          push({
+            kind: "err",
+            text: `command not found: ${name} — type /help`,
+          });
+        }
       }
     }
     setInput("");
@@ -267,7 +316,7 @@ export default function Hero() {
                     autoComplete="off"
                     aria-label="Terminal command input"
                     placeholder="try /about"
-                    className="w-full bg-transparent text-fg caret-accent outline-none placeholder:text-fg-dim"
+                    className="w-full bg-transparent text-fg caret-accent outline-none focus:outline-none focus-visible:outline-none placeholder:text-fg-dim"
                   />
                 </div>
               </div>
