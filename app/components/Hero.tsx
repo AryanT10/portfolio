@@ -358,7 +358,7 @@ export default function Hero() {
       <div className="mt-7 flex flex-wrap items-center gap-3">
         <a
           href="#work"
-          className="rounded-lg bg-accent px-4 py-2.5 font-mono text-sm font-semibold text-bg transition hover:bg-accent-hover"
+          className="rounded-lg bg-btn-bg px-4 py-2.5 font-mono text-sm font-semibold text-btn-fg transition hover:bg-btn-bg-hover"
         >
           View work →
         </a>

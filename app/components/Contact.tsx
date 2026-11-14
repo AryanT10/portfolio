@@ -40,7 +40,7 @@ export default function Contact() {
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <a
                 href={`mailto:${socials.email}`}
-                className="rounded-lg bg-accent px-4 py-2.5 text-sm font-semibold break-all text-bg transition hover:bg-accent-hover"
+                className="rounded-lg bg-btn-bg px-4 py-2.5 text-sm font-semibold break-all text-btn-fg transition hover:bg-btn-bg-hover"
               >
                 {socials.email}
               </a>

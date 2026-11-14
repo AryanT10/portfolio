@@ -21,6 +21,11 @@
   --accent-dim: rgba(74, 222, 128, 0.14);
   --accent-glow: rgba(74, 222, 128, 0.22);
 
+  /* filled buttons: calmer green + near-black text */
+  --btn-bg: #2ba866;
+  --btn-bg-hover: #238f56;
+  --btn-fg: #05130c;
+
   --term-red: #ff5f56;
   --term-yellow: #ffbd2e;
   --term-green: #27c93f;
@@ -45,6 +50,10 @@
   --accent-dim: rgba(21, 128, 61, 0.10);
   --accent-glow: rgba(21, 128, 61, 0.14);
 
+  --btn-bg: #15803d;
+  --btn-bg-hover: #166534;
+  --btn-fg: #f7f8f6;
+
   --term-red: #ff5f56;
   --term-yellow: #ffbd2e;
   --term-green: #27c93f;
@@ -64,6 +73,9 @@
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-accent-dim: var(--accent-dim);
+  --color-btn-bg: var(--btn-bg);
+  --color-btn-bg-hover: var(--btn-bg-hover);
+  --color-btn-fg: var(--btn-fg);
   --color-term-red: var(--term-red);
   --color-term-yellow: var(--term-yellow);
   --color-term-green: var(--term-green);
