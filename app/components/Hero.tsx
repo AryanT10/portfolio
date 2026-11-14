@@ -364,7 +364,7 @@ export default function Hero() {
           href="#work"
           className="rounded-lg bg-btn-bg px-4 py-2.5 font-mono text-sm font-semibold text-btn-fg transition hover:bg-btn-bg-hover"
         >
-          View work →
+          View work &gt;
         </a>
         <a
           href={socials.github}
@@ -382,6 +382,21 @@ export default function Hero() {
         >
           LinkedIn
         </a>
+      </div>
+
+      {/* konami hint */}
+      <div className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-2 font-mono text-[11px] text-fg-dim">
+        <span># psst, try this anywhere:</span>
+        <span className="flex flex-wrap items-center gap-1">
+          {["↑", "↑", "↓", "↓", "←", "→", "←", "→", "B", "A"].map((k, i) => (
+            <kbd
+              key={i}
+              className="rounded border border-border-strong bg-bg-overlay px-1.5 py-0.5 text-fg-muted"
+            >
+              {k}
+            </kbd>
+          ))}
+        </span>
       </div>
 
       {/* stat strip */}

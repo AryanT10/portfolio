@@ -22,21 +22,7 @@ export default function Footer() {
           </a>
         </div>
       </div>
-      <div className="mt-6 flex flex-wrap items-center gap-x-2 gap-y-2 font-mono text-[11px] text-fg-dim/70">
-        <span># psst, try this anywhere:</span>
-        <span className="flex flex-wrap items-center gap-1">
-          {["↑", "↑", "↓", "↓", "←", "→", "←", "→", "B", "A"].map((k, i) => (
-            <kbd
-              key={i}
-              className="rounded border border-border-strong bg-bg-overlay px-1.5 py-0.5 text-fg-muted"
-            >
-              {k}
-            </kbd>
-          ))}
-        </span>
-      </div>
-
-      <p className="mt-6 font-mono text-[11px] text-fg-dim/70">
+      <p className="mt-4 font-mono text-[11px] text-fg-dim/70">
         © {YEAR} {profile.name}.
       </p>
     </footer>
