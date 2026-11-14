@@ -123,6 +123,10 @@ export default function Hero() {
       return ["Aryan Tuwar - backend & full-stack engineer who sweats the money-handling edge cases."];
     if (name === "coffee")
       return ["☕ brewing… ✓ caffeine nominal. shipping continues."];
+    if (name === "matrix") {
+      window.dispatchEvent(new CustomEvent("start-matrix"));
+      return ["entering the matrix… (press esc to exit)"];
+    }
     if (name === "hire" || name === "hire me" || name === "hireme")
       return ["excellent decision. → aryantuwar676@gmail.com"];
     if (name === "joke") return [JOKES[history.length % JOKES.length]];
@@ -153,7 +157,7 @@ export default function Hero() {
         push({ kind: "out", text: `  /${c.label.padEnd(11)} ${c.desc}` })
       );
       push({ kind: "out", text: `  /clear       wipe the screen` });
-      push({ kind: "out", text: `psst… also try: sudo · coffee · joke · ls · neofetch` });
+      push({ kind: "out", text: `psst… also try: sudo · coffee · joke · ls · neofetch · matrix` });
     } else if (name === "clear" || name === "cls") {
       setHistory([]);
     } else {
