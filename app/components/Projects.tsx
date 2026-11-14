@@ -128,7 +128,7 @@ export default function Projects() {
           rel="noreferrer"
           className="inline-flex font-mono text-sm text-fg-muted transition hover:text-accent"
         >
-          <span className="text-accent">$</span>&nbsp; more on GitHub →
+          <span className="text-accent">$</span>&nbsp; more on GitHub &gt;
         </a>
       </Reveal>
     </section>
