@@ -126,9 +126,9 @@ export default function Projects() {
           href={socials.github}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex font-mono text-sm text-accent transition hover:text-accent-hover"
+          className="inline-flex font-mono text-sm text-fg-muted transition hover:text-accent"
         >
-          <span>$</span>&nbsp; more on GitHub &gt;
+          <span className="text-accent">$</span>&nbsp; more on GitHub &gt;
         </a>
       </Reveal>
     </section>
