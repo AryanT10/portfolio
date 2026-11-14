@@ -1,5 +1,5 @@
 /* ============================================================
-   Content layer — single source of truth for the whole site.
+   Content layer - single source of truth for the whole site.
    Edit text here; components render it.
    ------------------------------------------------------------
    TODO(aryan): confirm the 3 values in CONFIG below.
@@ -21,12 +21,12 @@ export const profile = {
   location: "Toronto, ON",
   // The one-liner. Punchy, true, memorable.
   tagline: "I build backends that don't lose money.",
-  // Status pill — recruiter catnip. Set back to the string to re-enable.
+  // Status pill - recruiter catnip. Set back to the string to re-enable.
   // e.g. "Open to Summer 2027 new-grad & internship roles"
   status: "",
   // Short bio (prose, 2 short paragraphs).
   bio: [
-    "I'm a software engineer at Mogo, where I ship production fintech on the Lending and Wealth teams — NestJS lending APIs, a Next.js customer app, and a React Native investing app used by real customers moving real money.",
+    "I'm a software engineer at Mogo, where I ship production fintech on the Lending and Wealth teams - NestJS lending APIs, a Next.js customer app, and a React Native investing app used by real customers moving real money.",
     "I like the unglamorous parts: idempotency, race conditions, graceful degradation, and the timezone bug that only fires between 8pm and midnight. On the side I build AI products end to end. Currently pursuing an Honours Bachelor's in Software Engineering at Seneca Polytechnic.",
   ],
   stats: [
@@ -43,7 +43,7 @@ export const socials = {
 };
 
 /* ---------------------------------------------------------------
-   EXPERIENCE — Mogo, told honestly from the LinkedIn record.
+   EXPERIENCE - Mogo, told honestly from the LinkedIn record.
    Three stints under one company.
 --------------------------------------------------------------- */
 export type Role = {
@@ -58,12 +58,12 @@ export type Role = {
 export const experience = {
   company: "Mogo",
   companyNote: "Toronto · Remote",
-  totalPeriod: "Jan 2026 — Present",
+  totalPeriod: "Jan 2026 - Present",
   roles: [
     {
       title: "Engineering Intern",
       kind: "Internship · current",
-      period: "Sep 2026 — Present",
+      period: "Sep 2026 - Present",
       team: "Lending",
       summary: "Carried on with the Lending team after the co-op term.",
       highlights: [],
@@ -71,22 +71,22 @@ export const experience = {
     {
       title: "Engineering Intern",
       kind: "Co-op",
-      period: "Apr 2026 — Sep 2026",
+      period: "Apr 2026 - Sep 2026",
       team: "Lending",
       summary:
-        "Backend and web on Mogo's Line of Credit product — from application and agreement signing through draws, repayments, and statements.",
+        "Backend and web on Mogo's Line of Credit product - from application and agreement signing through draws, repayments, and statements.",
       highlights: [
         "Merged 120+ PRs in ~20 weeks across the NestJS/TypeScript lending API and the Next.js customer web app.",
-        "Built the draw-request feature end to end — 9 backend endpoints plus customer UI, protected against duplicate submits and races with idempotency keys and DB advisory locks.",
+        "Built the draw-request feature end to end - 9 backend endpoints plus customer UI, protected against duplicate submits and races with idempotency keys and DB advisory locks.",
         "Shipped self-serve cancel/edit for additional payments across backend + frontend, integrated with the LoanPro autopay API behind a feature flag.",
-        "Set up autopay to be created automatically when each credit line opens — unblocking the entire repayment feature set.",
+        "Set up autopay to be created automatically when each credit line opens - unblocking the entire repayment feature set.",
         "Built province-specific loan-agreement templates with versioning, so each province's legal terms are kept and versioned separately.",
       ],
     },
     {
       title: "Engineering Intern",
       kind: "Co-op",
-      period: "Jan 2026 — Apr 2026",
+      period: "Jan 2026 - Apr 2026",
       team: "Intelligent Investing (Wealth)",
       summary:
         "The mobile app that unifies Mogo's managed investing and self-directed trading in one experience.",
@@ -102,7 +102,7 @@ export const experience = {
 };
 
 /* ---------------------------------------------------------------
-   CASE STUDIES — the crown jewels. Real engineering stories.
+   CASE STUDIES - the crown jewels. Real engineering stories.
 --------------------------------------------------------------- */
 export type CaseStudy = {
   id: string;
@@ -120,11 +120,11 @@ export const caseStudies: CaseStudy[] = [
     title: "A draw engine that never double-spends",
     team: "Lending",
     problem:
-      "Customers draw money from a credit line. A double-submit, a retry, or two concurrent requests could send the same money to the loan system twice — a real financial bug, not a cosmetic one.",
+      "Customers draw money from a credit line. A double-submit, a retry, or two concurrent requests could send the same money to the loan system twice - a real financial bug, not a cosmetic one.",
     approach:
       "Built the feature end to end: 9 backend endpoints plus the customer UI. Guarded writes with idempotency keys and Postgres advisory locks, and split the money move into a two-phase finalize so the system always knows exactly what has already been sent downstream.",
     impact:
-      "Duplicate submits and race conditions can't move money twice. The finalize step is crash-safe — it never loses track of funds already sent to the loan system.",
+      "Duplicate submits and race conditions can't move money twice. The finalize step is crash-safe - it never loses track of funds already sent to the loan system.",
     tags: ["NestJS", "PostgreSQL", "idempotency", "advisory locks", "Next.js"],
   },
   {
@@ -134,9 +134,9 @@ export const caseStudies: CaseStudy[] = [
     problem:
       "Every credit-line activation submitted between 8pm and midnight Eastern was silently failing. Earlier in the day, everything worked.",
     approach:
-      "Traced it to a timezone mismatch: our servers ran on UTC, the vendor ran on Eastern. After 8pm ET, UTC rolls to the next calendar day — so the dates we sent no longer matched what the vendor expected.",
+      "Traced it to a timezone mismatch: our servers ran on UTC, the vendor ran on Eastern. After 8pm ET, UTC rolls to the next calendar day - so the dates we sent no longer matched what the vendor expected.",
     impact:
-      "Fixed the date handling at the boundary. Late-evening activations — a meaningful slice of daily volume — stopped failing.",
+      "Fixed the date handling at the boundary. Late-evening activations - a meaningful slice of daily volume - stopped failing.",
     tags: ["debugging", "timezones", "vendor integration"],
   },
   {
@@ -148,7 +148,7 @@ export const caseStudies: CaseStudy[] = [
     approach:
       "Made autopay get created automatically when each credit line opens. Reproduced the failure directly against the vendor sandbox to pin down the real cause of the malformed-request error, then shipped the fix behind a feature flag.",
     impact:
-      "Repayments became possible for every customer — the foundation the self-serve cancel/edit payment features were then built on.",
+      "Repayments became possible for every customer - the foundation the self-serve cancel/edit payment features were then built on.",
     tags: ["NestJS", "LoanPro API", "feature flags"],
   },
   {
@@ -156,7 +156,7 @@ export const caseStudies: CaseStudy[] = [
     title: "A balance screen that stays up when the vendor goes down",
     team: "Lending",
     problem:
-      "When LoanPro was unavailable, the balance screen showed customers an error — exactly when they're most anxious about their money.",
+      "When LoanPro was unavailable, the balance screen showed customers an error - exactly when they're most anxious about their money.",
     approach:
       "Added graceful degradation: when live data isn't reachable, the screen falls back to the most recent archived snapshot instead of failing.",
     impact:
@@ -166,7 +166,7 @@ export const caseStudies: CaseStudy[] = [
 ];
 
 /* ---------------------------------------------------------------
-   PROJECTS — featured, honest. Noise is deploy-ready; nutrivoice
+   PROJECTS - featured, honest. Noise is deploy-ready; nutrivoice
    leads with engineering rigor (voice/AI layer is in progress).
 --------------------------------------------------------------- */
 export type Project = {
@@ -190,7 +190,7 @@ export const projects: Project[] = [
     name: "Noise",
     tagline: "AI research assistant that shows where sources agree and disagree.",
     description:
-      "Ask a question in plain language; Noise plans searches, scrapes the top pages, extracts discrete claims from each source, then synthesizes one cited answer that explicitly surfaces consensus, contradictions, and remaining uncertainty — not just a summary box.",
+      "Ask a question in plain language; Noise plans searches, scrapes the top pages, extracts discrete claims from each source, then synthesizes one cited answer that explicitly surfaces consensus, contradictions, and remaining uncertainty - not just a summary box.",
     stack: [
       "React Native / Expo",
       "FastAPI",
@@ -200,7 +200,7 @@ export const projects: Project[] = [
       "PostgreSQL",
     ],
     highlight:
-      "A real agentic LangGraph pipeline — claim extraction, evidence ranking, a consensus builder that flags contradictions, and conditional edges that loop for more evidence or short-circuit when there's nothing relevant. Hardened with per-user quotas, auth throttling, and cost caps.",
+      "A real agentic LangGraph pipeline - claim extraction, evidence ranking, a consensus builder that flags contradictions, and conditional edges that loop for more evidence or short-circuit when there's nothing relevant. Hardened with per-user quotas, auth throttling, and cost caps.",
     status: "Building · App-Store prep",
     statusTone: "wip",
     private: true,
@@ -210,9 +210,9 @@ export const projects: Project[] = [
   {
     id: "nutrivoice",
     name: "NutriVoice",
-    tagline: "Voice-first nutrition tracking — say your meal, it's logged.",
+    tagline: "Voice-first nutrition tracking - say your meal, it's logged.",
     description:
-      "Speak one sentence about a meal and it's logged with real nutrition data. The product thesis is friction reduction. Built as a strict TypeScript monorepo with a deliberate boundary: AI interprets what you ate, structured data decides what it contains — the model is never allowed to invent nutrition values.",
+      "Speak one sentence about a meal and it's logged with real nutrition data. The product thesis is friction reduction. Built as a strict TypeScript monorepo with a deliberate boundary: AI interprets what you ate, structured data decides what it contains - the model is never allowed to invent nutrition values.",
     stack: [
       "Expo / React Native",
       "Fastify",
@@ -231,7 +231,7 @@ export const projects: Project[] = [
 ];
 
 /* ---------------------------------------------------------------
-   SKILLS — grouped, honest to what the work shows.
+   SKILLS - grouped, honest to what the work shows.
 --------------------------------------------------------------- */
 export const skills: { group: string; items: string[] }[] = [
   {
@@ -270,13 +270,13 @@ export const education = [
   {
     school: "Seneca Polytechnic",
     program: "Honours Bachelor's, Computer Software Engineering (BSD)",
-    period: "Sep 2025 — 2028",
+    period: "Sep 2025 - 2028",
     current: true,
   },
   {
     school: "Seneca Polytechnic",
     program: "Advanced Diploma, Computer Programming & Analysis",
-    period: "Jan 2023 — Apr 2025",
+    period: "Jan 2023 - Apr 2025",
     current: false,
   },
 ];

@@ -105,12 +105,12 @@ export default function Hero() {
     "To understand recursion, first understand recursion.",
   ];
 
-  // hidden commands — not shown in the dropdown, fun to discover
+  // hidden commands - not shown in the dropdown, fun to discover
   const easterEgg = (name: string): string[] | null => {
     if (name.startsWith("sudo")) {
       return name.includes("hire")
         ? ["✓ root access granted → aryantuwar676@gmail.com"]
-        : ["nice try — you already have root here 😏"];
+        : ["nice try - you already have root here 😏"];
     }
     if (name.startsWith("rm")) {
       return ["🙅 denied. this site is immutable & version-controlled. good instinct though."];
@@ -120,14 +120,14 @@ export default function Hero() {
       return ["about/   experience/   work/   skills/   contact/"];
     if (name === "pwd") return ["~/aryan/portfolio"];
     if (name === "whoami")
-      return ["Aryan Tuwar — backend & full-stack engineer who sweats the money-handling edge cases."];
+      return ["Aryan Tuwar - backend & full-stack engineer who sweats the money-handling edge cases."];
     if (name === "coffee")
       return ["☕ brewing… ✓ caffeine nominal. shipping continues."];
     if (name === "hire" || name === "hire me" || name === "hireme")
       return ["excellent decision. → aryantuwar676@gmail.com"];
     if (name === "joke") return [JOKES[history.length % JOKES.length]];
     if (name === "exit" || name === "quit")
-      return ["there is no exit — but there is a scroll bar ↑"];
+      return ["there is no exit - but there is a scroll bar ↑"];
     if (name === "neofetch")
       return [
         "aryan@portfolio",
@@ -148,7 +148,7 @@ export default function Hero() {
     const name = raw.replace(/^\//, "").toLowerCase();
 
     if (name === "help" || name === "?") {
-      push({ kind: "out", text: "available commands — type / to autocomplete:" });
+      push({ kind: "out", text: "available commands - type / to autocomplete:" });
       commands.forEach((c) =>
         push({ kind: "out", text: `  /${c.label.padEnd(11)} ${c.desc}` })
       );
@@ -168,7 +168,7 @@ export default function Hero() {
         } else {
           push({
             kind: "err",
-            text: `command not found: ${name} — type /help`,
+            text: `command not found: ${name} - type /help`,
           });
         }
       }
@@ -220,7 +220,7 @@ export default function Hero() {
     >
       {/* always-present, crawlable heading for SEO */}
       <h1 className="sr-only">
-        {profile.name} — {profile.role}. {profile.tagline}
+        {profile.name} - {profile.role}. {profile.tagline}
       </h1>
 
       {/* status pill */}
@@ -240,7 +240,7 @@ export default function Hero() {
           <span className="h-3 w-3 rounded-full bg-term-yellow" />
           <span className="h-3 w-3 rounded-full bg-term-green" />
           <span className="ml-3 font-mono text-xs text-fg-dim select-none">
-            {profile.handle}@{profile.host} — zsh
+            {profile.handle}@{profile.host} - zsh
           </span>
         </div>
 

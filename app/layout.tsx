@@ -15,14 +15,14 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
-const title = `${profile.name} — ${profile.role}`;
-const description = `${profile.tagline} Software engineer at Mogo shipping production fintech — NestJS, Next.js, React Native. ${profile.location}.`;
+const title = `${profile.name} - ${profile.role}`;
+const description = `${profile.tagline} Software engineer at Mogo shipping production fintech - NestJS, Next.js, React Native. ${profile.location}.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(CONFIG.siteUrl),
   title: {
     default: title,
-    template: `%s — ${profile.name}`,
+    template: `%s - ${profile.name}`,
   },
   description,
   keywords: [

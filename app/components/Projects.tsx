@@ -9,7 +9,7 @@ export default function Projects() {
       <SectionHeading index="03" command="ls ~/work" title="Projects" />
 
       <Reveal className="-mt-4 mb-8 font-sans text-sm leading-relaxed text-fg-muted">
-        Personal products I&apos;m actively building — both private while in
+        Personal products I&apos;m actively building - both private while in
         development. Happy to give a live walkthrough.
       </Reveal>
 
