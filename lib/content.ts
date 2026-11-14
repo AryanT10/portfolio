@@ -6,8 +6,9 @@
    ============================================================ */
 
 export const CONFIG = {
-  // The public URL the site will live at (used for SEO/OG canonical).
-  siteUrl: "https://aryantuwar.dev",
+  // The public URL the site lives at (used for SEO/OG canonical).
+  // Update this if you add a custom domain later.
+  siteUrl: "https://portfolio-erz.pages.dev",
   // Contact email shown on the site + used for the mailto link.
   email: "aryantuwar676@gmail.com",
 };
