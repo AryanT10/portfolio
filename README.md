@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# aryan tuwar — portfolio
 
-## Getting Started
-
-First, run the development server:
+A terminal-styled personal site. Backend & full-stack engineer, Toronto.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+$ whoami
+Aryan Tuwar — I build backends that don't lose money.
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Next.js 16** (App Router) + **React 19** + **TypeScript**
+- **Tailwind v4**
+- Static export (`output: "export"`) — ships as plain HTML/CSS/JS, no runtime
+- Geist Sans + Geist Mono
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Features
 
-## Learn More
+- Interactive hero terminal — type `/` for slash-command navigation
+- `⌘K` command palette (shares one command registry with the terminal)
+- Engineering case studies, light/dark theme, scroll reveals
+- Fully responsive, reduced-motion aware, SEO/OG metadata
 
-To learn more about Next.js, take a look at the following resources:
+## Develop
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm install
+npm run dev        # http://localhost:3000
+npm run build      # static export -> ./out
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Content
 
-## Deploy on Vercel
+All copy lives in [`lib/content.ts`](lib/content.ts) — one source of truth.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deploy
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Static export in `./out`. Hosted on Cloudflare Pages
+(build command `npx next build`, output directory `out`).
