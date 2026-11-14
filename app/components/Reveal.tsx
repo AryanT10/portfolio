@@ -19,6 +19,11 @@ export default function Reveal({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    // Fail-safe: if the observer API is missing, just show it.
+    if (typeof IntersectionObserver === "undefined") {
+      setShown(true);
+      return;
+    }
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -29,7 +34,12 @@ export default function Reveal({
       { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
     );
     io.observe(el);
-    return () => io.disconnect();
+    // Backstop: never let content stay invisible for long.
+    const t = setTimeout(() => setShown(true), 1500);
+    return () => {
+      io.disconnect();
+      clearTimeout(t);
+    };
   }, []);
 
   const Comp = Tag as "div";

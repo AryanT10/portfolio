@@ -29,7 +29,8 @@ export default function Contact() {
           </div>
           <div className="space-y-4 p-6 font-mono text-sm sm:p-8">
             <p className="text-fg-muted">
-              <span className="text-accent">$</span> echo &quot;{profile.status}&quot;
+              <span className="text-accent">$</span> echo &quot;
+              {profile.status || "let's build something"}&quot;
             </p>
             <p className="leading-relaxed text-fg">
               Have a role, a project, or a good bug story? I&apos;d love to hear

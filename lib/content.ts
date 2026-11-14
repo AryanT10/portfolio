@@ -20,8 +20,9 @@ export const profile = {
   location: "Toronto, ON",
   // The one-liner. Punchy, true, memorable.
   tagline: "I build backends that don't lose money.",
-  // Status pill — recruiter catnip.
-  status: "Open to Summer 2027 new-grad & internship roles",
+  // Status pill — recruiter catnip. Set back to the string to re-enable.
+  // e.g. "Open to Summer 2027 new-grad & internship roles"
+  status: "",
   // Short bio (prose, 2 short paragraphs).
   bio: [
     "I'm a software engineer at Mogo, where I ship production fintech on the Lending and Wealth teams — NestJS lending APIs, a Next.js customer app, and a React Native investing app used by real customers moving real money.",

@@ -175,13 +175,15 @@ export default function Hero() {
       </h1>
 
       {/* status pill */}
-      <div className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-border bg-bg-raised px-3 py-1.5 text-xs text-fg-muted">
-        <span className="relative flex h-2 w-2">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
-          <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
-        </span>
-        {profile.status}
-      </div>
+      {profile.status && (
+        <div className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-border bg-bg-raised px-3 py-1.5 text-xs text-fg-muted">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+          </span>
+          {profile.status}
+        </div>
+      )}
 
       <div className="rounded-xl border border-border-strong bg-bg-raised shadow-2xl shadow-black/40">
         <div className="flex items-center gap-2 border-b border-border px-4 py-3">
