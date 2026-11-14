@@ -32,7 +32,7 @@ export const profile = {
   stats: [
     { value: "260+", label: "PRs merged at Mogo" },
     { value: "11 mo", label: "shipping production fintech" },
-    { value: "3", label: "teams: Lending, Wealth, Web" },
+    { value: "2", label: "teams: Lending & Wealth" },
   ],
 };
 
