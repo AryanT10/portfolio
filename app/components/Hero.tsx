@@ -71,16 +71,16 @@ export default function Hero() {
       if (i <= cmd.length) {
         setTyped(cmd.slice(0, i));
         i += 1;
-        timer = setTimeout(tick, 42);
+        timer = setTimeout(tick, 75);
       } else {
         s += 1;
         i = 0;
         setStep(s);
         setTyped("");
-        timer = setTimeout(tick, 480);
+        timer = setTimeout(tick, 650);
       }
     };
-    timer = setTimeout(tick, 520);
+    timer = setTimeout(tick, 650);
     return () => {
       active = false;
       clearTimeout(timer);
@@ -246,7 +246,7 @@ export default function Hero() {
 
         <div
           onClick={() => inputRef.current?.focus()}
-          className="cursor-text p-5 font-mono text-sm sm:p-7 sm:text-base"
+          className="min-h-[21rem] cursor-text p-5 font-mono text-sm sm:min-h-[20rem] sm:p-7 sm:text-base"
         >
           {/* intro: whoami -> name */}
           <div className="flex flex-wrap items-baseline gap-x-2">
@@ -256,7 +256,7 @@ export default function Hero() {
             </span>
           </div>
           {step > 0 && (
-            <div className="mt-1 mb-3" aria-hidden>
+            <div className="term-pop mt-1 mb-3" aria-hidden>
               <p className="text-3xl font-bold tracking-tight text-fg sm:text-5xl">
                 {profile.name}
               </p>
@@ -274,7 +274,7 @@ export default function Hero() {
             </div>
           )}
           {step > 1 && (
-            <p className="mt-1 mb-3 text-lg text-accent sm:text-xl">
+            <p className="term-pop mt-1 mb-3 text-lg text-accent sm:text-xl">
               &ldquo;{profile.tagline}&rdquo;
             </p>
           )}
