@@ -129,7 +129,7 @@ export default function Hero() {
     }
     if (name === "play" || name === "music") {
       window.dispatchEvent(new CustomEvent("start-bass"));
-      return ["♪ dropping the bass… (scroll to /about to see it — type /stop)"];
+      return ["♪ dropping the bass… (scroll to /about to see it - type /stop)"];
     }
     if (name === "stop" || name === "pause") {
       window.dispatchEvent(new CustomEvent("stop-bass"));

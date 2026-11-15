@@ -25,7 +25,7 @@ export default function Fun() {
         idx += 1;
         if (idx === KONAMI.length) {
           idx = 0;
-          setToast("cheat code accepted — welcome to the matrix");
+          setToast("cheat code accepted - welcome to the matrix");
           setActive(true);
           window.setTimeout(() => setToast(null), 4000);
         }

@@ -18,16 +18,39 @@ function distortionCurve(amount: number) {
   return curve;
 }
 
+const RIFF = [
+  { f: 55.0, n: "A1" },
+  { f: 55.0, n: "A1" },
+  { f: 73.42, n: "D2" },
+  { f: 49.0, n: "G1" },
+  { f: 55.0, n: "A1" },
+  { f: 65.41, n: "C2" },
+  { f: 49.0, n: "G1" },
+  { f: 43.65, n: "F1" },
+];
+
 export default function BassSynth() {
   const [playing, setPlaying] = useState(false);
+  const [log, setLog] = useState<string[]>([]);
   const preRef = useRef<HTMLPreElement>(null);
+  const logRef = useRef<HTMLDivElement>(null);
 
   const ctxRef = useRef<AudioContext | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
   const liveRef = useRef<{ stop: () => void } | null>(null);
   const rafRef = useRef<number>(0);
+  const logTimers = useRef<number[]>([]);
 
-  // render an idle flat baseline into the <pre>
+  const pushLog = useCallback((line: string) => {
+    setLog((l) => [...l, line].slice(-40));
+  }, []);
+
+  // keep the log scrolled to the newest line
+  useEffect(() => {
+    const el = logRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [log]);
+
   const renderIdle = useCallback(() => {
     const el = preRef.current;
     if (!el) return;
@@ -46,9 +69,12 @@ export default function BassSynth() {
     liveRef.current?.stop();
     liveRef.current = null;
     cancelAnimationFrame(rafRef.current);
+    logTimers.current.forEach((t) => window.clearTimeout(t));
+    logTimers.current = [];
     setPlaying(false);
     renderIdle();
-  }, [renderIdle]);
+    pushLog("■ halted. graph torn down.");
+  }, [renderIdle, pushLog]);
 
   const start = useCallback(() => {
     if (liveRef.current) return;
@@ -63,7 +89,11 @@ export default function BassSynth() {
 
     const now = ctx.currentTime;
 
-    // ---- master + analyser ----
+    setLog([]);
+    pushLog("$ ./dubstep --synth --live");
+    pushLog(`audioctx > resumed @ ${Math.round(ctx.sampleRate / 1000)}kHz`);
+    pushLog("graph    > saw+sub > lpf(Q=11) > shaper > out");
+
     const master = ctx.createGain();
     master.gain.setValueAtTime(0.0001, now);
     master.gain.linearRampToValueAtTime(0.55, now + 0.15);
@@ -76,7 +106,6 @@ export default function BassSynth() {
     master.connect(analyser);
     analyser.connect(ctx.destination);
 
-    // ---- wobble bass voice ----
     const filter = ctx.createBiquadFilter();
     filter.type = "lowpass";
     filter.frequency.value = 520;
@@ -100,22 +129,22 @@ export default function BassSynth() {
     filter.connect(shaper);
     shaper.connect(master);
 
-    // LFO modulates the filter cutoff -> the "wub wub"
     const lfo = ctx.createOscillator();
     lfo.type = "sine";
-    lfo.frequency.value = (BPM / 60) * 2; // eighth-note wobble
+    lfo.frequency.value = (BPM / 60) * 2;
     const lfoDepth = ctx.createGain();
     lfoDepth.gain.value = 420;
     lfo.connect(lfoDepth);
     lfoDepth.connect(filter.frequency);
 
+    pushLog(`lfo      > ${lfo.frequency.value.toFixed(2)}Hz > cutoff +/-420`);
+    pushLog(`seq      > ${BPM} BPM, 8 steps/bar`);
+
     saw.start(now);
     sub.start(now);
     lfo.start(now);
 
-    // ---- step sequencer (scheduler with lookahead) ----
-    const stepDur = 60 / BPM / 2; // eighth notes
-    const riff = [55, 55, 73.42, 49, 55, 65.41, 49, 43.65]; // A1 .. riff
+    const stepDur = 60 / BPM / 2;
     let step = 0;
     let nextTime = now + 0.06;
 
@@ -153,11 +182,22 @@ export default function BassSynth() {
     };
 
     const scheduleStep = (s: number, t: number) => {
-      const f = riff[s % riff.length];
+      const { f, n } = RIFF[s % RIFF.length];
       saw.frequency.setValueAtTime(f, t);
       sub.frequency.setValueAtTime(f / 2, t);
-      if (s % 8 === 0) kick(t);
-      if (s % 8 === 4) snare(t);
+      const isKick = s % 8 === 0;
+      const isSnare = s % 8 === 4;
+      if (isKick) kick(t);
+      if (isSnare) snare(t);
+      // log it in sync with when it actually sounds
+      const delay = Math.max(0, (t - ctx.currentTime) * 1000);
+      const bar = Math.floor(s / 8) + 1;
+      const pos = `${bar}.${(s % 8) + 1}`;
+      const hit = isKick ? "  +kick" : isSnare ? "  +snare" : "";
+      const id = window.setTimeout(() => {
+        pushLog(`[${pos}] note ${n.padEnd(2)} ${f.toFixed(2)}Hz${hit}`);
+      }, delay);
+      logTimers.current.push(id);
     };
 
     const timer = window.setInterval(() => {
@@ -184,26 +224,25 @@ export default function BassSynth() {
       },
     };
 
-    // ---- visualizer ----
+    // visualizer
     const bins = analyser.frequencyBinCount;
-    const data = new Uint8Array(bins);
-    const usable = Math.min(bins, 72); // bass/low-mid heavy
+    const freq = new Uint8Array(bins);
+    const usable = Math.min(bins, 72);
     const span = usable / COLS;
     let lastFrame = 0;
 
     const draw = (ts: number) => {
       rafRef.current = requestAnimationFrame(draw);
-      if (ts - lastFrame < 33) return; // ~30fps
+      if (ts - lastFrame < 33) return;
       lastFrame = ts;
-      analyser.getByteFrequencyData(data);
+      analyser.getByteFrequencyData(freq);
       const levels: number[] = [];
       for (let c = 0; c < COLS; c++) {
         let sum = 0;
         const s0 = Math.floor(c * span);
         const s1 = Math.floor((c + 1) * span);
-        for (let i = s0; i < s1; i++) sum += data[i];
+        for (let i = s0; i < s1; i++) sum += freq[i];
         const avg = sum / Math.max(1, s1 - s0);
-        // slight boost so quiet highs still move
         levels[c] = Math.min(ROWS, Math.round((avg / 255) * ROWS * 1.3));
       }
       const el = preRef.current;
@@ -222,14 +261,13 @@ export default function BassSynth() {
     rafRef.current = requestAnimationFrame(draw);
 
     setPlaying(true);
-  }, []);
+  }, [pushLog]);
 
   const toggle = useCallback(() => {
     if (liveRef.current) stop();
     else start();
   }, [start, stop]);
 
-  // let the terminal /play and /stop commands drive it
   useEffect(() => {
     const onStart = () => start();
     const onStop = () => stop();
@@ -244,7 +282,6 @@ export default function BassSynth() {
     };
   }, [start, stop, toggle]);
 
-  // cleanup on unmount
   useEffect(() => () => stop(), [stop]);
 
   return (
@@ -255,7 +292,9 @@ export default function BassSynth() {
       <div className="overflow-hidden rounded-xl border border-border bg-bg-raised">
         <div className="flex items-center justify-between gap-4 border-b border-border px-4 py-3">
           <span className="font-mono text-xs text-fg-dim">
-            {playing ? "now playing — wobble bass (synth)" : "dubstep synth · built in code"}
+            {playing
+              ? "now playing - wobble bass (synth)"
+              : "dubstep synth - built in code"}
           </span>
           <button
             onClick={toggle}
@@ -269,6 +308,7 @@ export default function BassSynth() {
             {playing ? "■ stop" : "▸ drop the bass"}
           </button>
         </div>
+
         <div className="p-4">
           <pre
             ref={preRef}
@@ -276,9 +316,35 @@ export default function BassSynth() {
             className="overflow-hidden font-mono text-[10px] leading-[1.05] text-accent select-none sm:text-xs"
             style={{ textShadow: "0 0 8px var(--accent-glow)" }}
           />
+
+          {/* live code-execution log, collapsed by default */}
+          <details className="group mt-4 rounded-lg border border-border bg-bg">
+            <summary className="flex cursor-pointer list-none items-center gap-2 px-3 py-2 font-mono text-[11px] text-fg-muted">
+              <span className="text-accent transition-transform duration-200 group-open:rotate-90">
+                ▸
+              </span>
+              watch the engine execute
+            </summary>
+            <div
+              ref={logRef}
+              className="max-h-44 overflow-y-auto border-t border-border px-3 py-2"
+            >
+              {log.length === 0 ? (
+                <p className="font-mono text-[11px] text-fg-dim">
+                  press play - the synth logs every scheduled note, kick &amp;
+                  snare here, live.
+                </p>
+              ) : (
+                <pre className="whitespace-pre-wrap font-mono text-[10.5px] leading-relaxed text-fg-muted sm:text-[11px]">
+                  {log.join("\n")}
+                </pre>
+              )}
+            </div>
+          </details>
+
           <p className="mt-3 font-mono text-[11px] text-fg-dim">
-            100% Web Audio — sawtooth → resonant low-pass wobbled by an LFO, plus
-            a synth kick &amp; snare. Try{" "}
+            100% Web Audio - sawtooth {">"} resonant low-pass wobbled by an LFO,
+            plus a synth kick &amp; snare. Try{" "}
             <span className="text-accent">/play</span> in the terminal too.
           </p>
         </div>

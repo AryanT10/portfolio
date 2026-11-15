@@ -37,14 +37,23 @@ export default function About() {
         ))}
       </Reveal>
 
-      <Reveal delay={120} className="mt-10">
-        <p className="font-sans text-[15px] leading-relaxed text-fg-muted sm:text-base">
-          Off the clock, I&apos;m almost always listening to dubstep — so I
-          synthesized some, in code. Hit play for a wobble bass generated live in
-          your browser (no audio file involved):
+      <Reveal
+        delay={120}
+        className="mt-10 space-y-4 font-sans text-[15px] leading-relaxed text-fg-muted sm:text-base"
+      >
+        <p>
+          Outside work I&apos;m part gym rat, part bass head. A normal Monday
+          morning is chest press with the 60-65 lb dumbbells, here and there -
+          chasing heavier, chasing bigger, one rep at a time. 💪
         </p>
-        <BassSynth />
+        <p>
+          And since I&apos;m always buried in dubstep, I figured I&apos;d just
+          synthesize some in code. Hit play for a wobble bass generated live in
+          your browser - no audio file involved:
+        </p>
       </Reveal>
+
+      <BassSynth />
     </section>
   );
 }
