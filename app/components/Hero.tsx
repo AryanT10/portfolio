@@ -127,10 +127,6 @@ export default function Hero() {
       window.dispatchEvent(new CustomEvent("start-matrix"));
       return ["entering the matrix… (press esc to exit)"];
     }
-    if (name === "play" || name === "music") {
-      window.dispatchEvent(new CustomEvent("start-bass"));
-      return ["♪ dropping the bass… (scroll to /about to see it - type /stop)"];
-    }
     if (name === "stop" || name === "pause") {
       window.dispatchEvent(new CustomEvent("stop-bass"));
       return ["⏹ bass stopped."];

@@ -127,6 +127,17 @@ export function useCommands(): Command[] {
         },
       },
       {
+        id: "play",
+        label: "play",
+        desc: "dubstep wobble (synth)",
+        hint: "action",
+        aliases: ["music", "bass"],
+        run: () => {
+          window.dispatchEvent(new CustomEvent("toggle-bass"));
+          return "♪ toggling the bass synth";
+        },
+      },
+      {
         id: "theme",
         label: "theme",
         desc: "toggle light / dark",

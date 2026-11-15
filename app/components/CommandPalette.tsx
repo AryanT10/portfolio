@@ -121,14 +121,12 @@ export default function CommandPalette() {
                 onClick={() => runAt(i)}
                 className={`flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-left font-mono text-sm transition-colors ${
                   i === active
-                    ? "bg-accent-dim text-fg"
-                    : "text-fg-muted hover:bg-bg-overlay"
+                    ? "bg-bg-overlay text-fg"
+                    : "text-fg-muted hover:bg-bg-overlay/60"
                 }`}
               >
                 <span>
-                  <span className={i === active ? "text-accent" : "text-fg-dim"}>
-                    /
-                  </span>
+                  <span className="text-fg-dim">/</span>
                   {c.label}
                   <span className="ml-3 text-fg-dim">{c.desc}</span>
                 </span>
