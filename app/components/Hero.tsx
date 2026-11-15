@@ -127,6 +127,14 @@ export default function Hero() {
       window.dispatchEvent(new CustomEvent("start-matrix"));
       return ["entering the matrix… (press esc to exit)"];
     }
+    if (name === "play" || name === "music") {
+      window.dispatchEvent(new CustomEvent("start-bass"));
+      return ["♪ dropping the bass… (scroll to /about to see it — type /stop)"];
+    }
+    if (name === "stop" || name === "pause") {
+      window.dispatchEvent(new CustomEvent("stop-bass"));
+      return ["⏹ bass stopped."];
+    }
     if (name === "hire" || name === "hire me" || name === "hireme")
       return ["excellent decision. → aryantuwar676@gmail.com"];
     if (name === "joke") return [JOKES[history.length % JOKES.length]];
@@ -157,7 +165,7 @@ export default function Hero() {
         push({ kind: "out", text: `  /${c.label.padEnd(11)} ${c.desc}` })
       );
       push({ kind: "out", text: `  /clear       wipe the screen` });
-      push({ kind: "out", text: `psst… also try: sudo · coffee · joke · ls · neofetch · matrix` });
+      push({ kind: "out", text: `psst… also try: sudo · coffee · joke · ls · neofetch · matrix · play` });
     } else if (name === "clear" || name === "cls") {
       setHistory([]);
     } else {

@@ -1,5 +1,6 @@
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
+import BassSynth from "./BassSynth";
 import { profile, education } from "@/lib/content";
 
 export default function About() {
@@ -34,6 +35,15 @@ export default function About() {
             <span className="text-fg-dim">{ed.period}</span>
           </div>
         ))}
+      </Reveal>
+
+      <Reveal delay={120} className="mt-10">
+        <p className="font-sans text-[15px] leading-relaxed text-fg-muted sm:text-base">
+          Off the clock, I&apos;m almost always listening to dubstep — so I
+          synthesized some, in code. Hit play for a wobble bass generated live in
+          your browser (no audio file involved):
+        </p>
+        <BassSynth />
       </Reveal>
     </section>
   );
