@@ -63,16 +63,29 @@ export const experience = {
     {
       title: "Junior Full Stack AI Engineer",
       kind: "Permanent · current",
-      period: "Sep 2026 - Present",
+      period: "Nov 2026 - Present",
       team: "Lending",
       summary:
-        "Carried on past the co-op, driving Mogo's Line of Credit product through pre-launch hardening toward production launch.",
+        "Moved into a permanent engineering role, driving Mogo's Line of Credit product through its final pre-launch stretch.",
       highlights: [
-        "Shipping backend (NestJS) and web (Next.js) changes at a steady weekly cadence - money-safety, observability, and reliability as the product moves to launch.",
         "Caught money-movement bugs during pre-launch testing - a funding-file reconciliation gap that could have disbursed unvalidated draws, and a $0-limit credit line that could be created, activated, and auto-paid.",
+        "Root-caused production/staging incidents (e.g. an expired-cert outage) and pre-emptively flagged the next upcoming expiry to head off a repeat.",
+        "Shipping backend (NestJS) and web (Next.js) changes at a steady weekly cadence as the product approaches launch.",
+      ],
+    },
+    {
+      title: "Engineering Intern",
+      kind: "Internship",
+      period: "Sep 2026 - Nov 2026",
+      team: "Lending",
+      summary:
+        "Carried on with the Lending team after the co-op ended, as the Line of Credit product moved into pre-launch hardening.",
+      highlights: [
         "Built an operational-errors pipeline + admin reporting tool so on-call can triage alerts from 10+ services without external dashboards (errors used to hit Slack and vanish).",
         "Hardened CRM sync by classifying job failures (transient / permanent / ignored) with bounded retries + a dead-letter queue, killing a queue-poisoning failure class.",
-        "Added a CI gate blocking out-of-order DB migrations after a multi-day dev outage, and cut a recurring 30s API-timeout cluster by replacing a slow vendor call with direct entity reads.",
+        "Added a CI gate blocking out-of-order DB migrations after a multi-day dev outage, and cut a recurring 30s API-timeout cluster by swapping a slow vendor call for direct entity reads.",
+        "Enforced 'no draws while delinquent' end to end - backend and frontend shipped in lockstep.",
+        "Cut a noisy funding-file alert's false-positive rate by validating it against Mogo's own expected-batch model.",
       ],
     },
     {
