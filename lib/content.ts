@@ -61,12 +61,19 @@ export const experience = {
   totalPeriod: "Jan 2026 - Present",
   roles: [
     {
-      title: "Engineering Intern",
-      kind: "Internship · current",
+      title: "Junior Full Stack AI Engineer",
+      kind: "Permanent · current",
       period: "Sep 2026 - Present",
       team: "Lending",
-      summary: "Carried on with the Lending team after the co-op term.",
-      highlights: [],
+      summary:
+        "Carried on past the co-op, driving Mogo's Line of Credit product through pre-launch hardening toward production launch.",
+      highlights: [
+        "Shipping backend (NestJS) and web (Next.js) changes at a steady weekly cadence - money-safety, observability, and reliability as the product moves to launch.",
+        "Caught money-movement bugs during pre-launch testing - a funding-file reconciliation gap that could have disbursed unvalidated draws, and a $0-limit credit line that could be created, activated, and auto-paid.",
+        "Built an operational-errors pipeline + admin reporting tool so on-call can triage alerts from 10+ services without external dashboards (errors used to hit Slack and vanish).",
+        "Hardened CRM sync by classifying job failures (transient / permanent / ignored) with bounded retries + a dead-letter queue, killing a queue-poisoning failure class.",
+        "Added a CI gate blocking out-of-order DB migrations after a multi-day dev outage, and cut a recurring 30s API-timeout cluster by replacing a slow vendor call with direct entity reads.",
+      ],
     },
     {
       title: "Engineering Intern",
@@ -126,6 +133,18 @@ export const caseStudies: CaseStudy[] = [
     impact:
       "Duplicate submits and race conditions can't move money twice. The finalize step is crash-safe - it never loses track of funds already sent to the loan system.",
     tags: ["NestJS", "PostgreSQL", "idempotency", "advisory locks", "Next.js"],
+  },
+  {
+    id: "money-safety",
+    title: "Catching money-movement bugs before they ship",
+    team: "Lending",
+    problem:
+      "As the Line of Credit product moved toward launch, testing kept surfacing edge cases where money could move incorrectly - a funding file that could disburse draws it had never validated, and a $0-limit credit line that could still be created, activated, and put on autopay.",
+    approach:
+      "Treated pre-launch testing as an active hunt, not a checkbox: reconciled each funding file against Mogo's own model of the draws it expected to disburse before marking it ready, and enforced a credit-limit floor at submit so an invalid line can't be created or activated downstream.",
+    impact:
+      "Multiple money-movement bugs caught and fixed the same week they surfaced, before any customer impact - the exact class of failure a lending backend can't ship with.",
+    tags: ["NestJS", "funding reconciliation", "edge cases", "pre-launch QA"],
   },
   {
     id: "timezone-bug",
